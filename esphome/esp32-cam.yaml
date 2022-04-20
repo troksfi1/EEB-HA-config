@@ -1,0 +1,49 @@
+esphome:
+  name: esp32-cam
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "db9087a91161326dc28dcb1d075e38e3"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: none
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  #ap:
+  #  ssid: "Esp32-Cam Fallback Hotspot"
+  #  password: "yR9bYuHn8V0F"
+
+captive_portal:
+
+# Example configuration entry
+esp32_camera:
+  external_clock:
+    pin: GPIO0
+    frequency: 20MHz
+  i2c_pins:
+    sda: GPIO26
+    scl: GPIO27
+  data_pins: [GPIO5, GPIO18, GPIO19, GPIO21, GPIO36, GPIO39, GPIO34, GPIO35]
+  vsync_pin: GPIO25
+  href_pin: GPIO23
+  pixel_clock_pin: GPIO22
+  power_down_pin: GPIO32
+
+  # Image settings
+  name: ESP32-cam
+  max_framerate: 1 fps    # default: 10 fps, max 60
+  idle_framerate: 1 fps # default: 0.1 fps - framerate for 'picture' in HA dashboard
+  resolution: 640x480     # default: 640x480 (VGA) - higher res requires more memory
+  jpeg_quality: 10        # 10 (best) to 63 (worst)

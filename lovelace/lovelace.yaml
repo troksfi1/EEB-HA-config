@@ -1,0 +1,207 @@
+config:
+  title: Barak_Svata
+  views:
+  - cards:
+    - link_dashboard: true
+      type: energy-distribution
+    - entities:
+      - entity: switch.relay1
+      - entity: switch.relay3
+      - entity: switch.relay4
+      - entity: switch.ssrrelay
+      - entity: sensor.bathroomtemperature
+      - entity: sensor.bathroomhumidity
+      title: "Pojistkov\xE1 sk\u0159\xED\u0148"
+      type: entities
+    - cards:
+      - camera_view: live
+        entity: camera.esp32_cam
+        show_name: true
+        show_state: true
+        type: picture-entity
+      - entities:
+        - entity: sensor.total_production_today_2
+        - entity: sensor.total_production_2
+        - entity: sensor.ac_voltage_2
+        - entity: sensor.output_power_prumer_5min_2
+        - entity: sensor.dc_voltage
+        state_color: false
+        title: GridFree 2000G
+        type: entities
+      columns: 1
+      square: false
+      type: grid
+    - entities:
+      - sensor.disk_free
+      - sensor.energy_next_hour
+      - sensor.energy_current_hour
+      - sensor.energy_production_today
+      - sensor.energy_production_tomorrow
+      - sensor.power_production_now
+      - sensor.power_highest_peak_time_today
+      - sensor.power_highest_peak_time_tomorrow
+      - sensor.processor_use
+      - sensor.hacs
+      title: Senzor
+      type: entities
+    - entities:
+      - sensor.battery_soc
+      - sensor.battery_current
+      - sensor.battery_status_temeratur
+      - sensor.battery_temperature
+      - sensor.battery_voltage_2
+      - sensor.charger_status
+      - sensor.maximum_battery_voltage_today
+      - sensor.minimum_battery_voltage_today
+      - sensor.pv_array_input_current
+      - sensor.pv_array_input_power
+      - sensor.pv_array_input_voltage
+      title: EPEVER MPPT 4415N
+      type: entities
+    - entities:
+      - entity: binary_sensor.rpi_power_status
+      title: "Bin\xE1rn\xED senzor"
+      type: entities
+    - entities:
+      - entity: sensor.2_shelly_em_channel_1_energy
+        name: Channel 1 Energy
+      - entity: sensor.2_shelly_em_channel_1_energy_returned
+        name: Channel 1 Energy Returned
+      - entity: sensor.2_shelly_em_channel_1_power
+        name: Channel 1 Power
+      - entity: sensor.2_shelly_em_channel_1_power_factor
+        name: Channel 1 Power Factor
+      - entity: sensor.2_shelly_em_channel_1_voltage
+        name: Channel 1 Voltage
+      - entity: sensor.2_shelly_em_channel_2_energy
+        name: Channel 2 Energy
+      - entity: sensor.2_shelly_em_channel_2_energy_returned
+        name: Channel 2 Energy Returned
+      - entity: sensor.2_shelly_em_channel_2_power
+        name: Channel 2 Power
+      - entity: sensor.2_shelly_em_channel_2_power_factor
+        name: Channel 2 Power Factor
+      - entity: sensor.2_shelly_em_channel_2_voltage
+        name: Channel 2 Voltage
+      title: 2) Shelly EM
+      type: entities
+    - entity: weather.barak_svata
+      show_forecast: false
+      type: weather-forecast
+    - cards:
+      - aspect_ratio: '1'
+        entity: person.emil
+        image: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0
+          0 50 50' width='50' height='50' style='background-color:%23b3e5fC'%3E%3Cg%3E%3Ctext
+          font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121'
+          font-size='1.3em' dy='.3em'%3EE%3C/text%3E%3C/g%3E%3C/svg%3E
+        show_name: false
+        type: picture-entity
+      - aspect_ratio: '1'
+        entity: person.mqtt_user
+        image: data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0
+          0 50 50' width='50' height='50' style='background-color:%23b3e5fC'%3E%3Cg%3E%3Ctext
+          font-family='roboto' x='50%25' y='50%25' text-anchor='middle' stroke='%23212121'
+          font-size='1.3em' dy='.3em'%3Em%3C/text%3E%3C/g%3E%3C/svg%3E
+        show_name: false
+        type: picture-entity
+      columns: 3
+      square: true
+      type: grid
+    - entities:
+      - sensor.connected_clients
+      type: entities
+    path: default_view
+    title: Home
+  - badges: []
+    cards:
+    - entity: weather.barak_svata
+      show_current: true
+      show_forecast: true
+      type: weather-forecast
+    - detail: 2
+      entity: sensor.bathroomtemperature
+      graph: line
+      hours_to_show: 24
+      name: Bathroom Temperature
+      type: sensor
+    - cards:
+      - detail: 1
+        entity: sensor.bathroomtemperature
+        graph: line
+        hours_to_show: 24
+        type: sensor
+      - detail: 1
+        entity: sensor.bedroom_large
+        graph: line
+        hours_to_show: 24
+        type: sensor
+      - detail: 2
+        entity: sensor.bedroom_small
+        graph: line
+        hours_to_show: 24
+        type: sensor
+      type: horizontal-stack
+    - cards:
+      - entity: climate.bathroom
+        type: thermostat
+      - entity: climate.bedroom_large
+        type: thermostat
+      - entity: climate.bedroom_small
+        type: thermostat
+      type: horizontal-stack
+    - elements:
+      - entity: sensor.bathroomtemperature
+        style:
+          left: 45%
+          top: 26%
+        type: state-badge
+      image: https://www.drevostavitel.cz/galerie/clanky/1433/gallery/drevostavba-bez-jedine-chyby-21208.jpg
+      type: picture-elements
+    - entities:
+      - entity: sensor.bedroom_large
+      - entity: sensor.bedroom_small
+      - entity: binary_sensor.pir_sensor
+      state_color: true
+      type: entities
+    - type: shopping-list
+    - entities:
+      - entity: input_select.prio1_consumer
+      - entity: input_select.prio2_consumer
+      - entity: input_select.prio3_consumer
+      footer:
+        entity: sensor.2_shelly_em_channel_1_power
+        type: graph
+      title: "Vyu\u017E\xEDv\xE1n\xED p\u0159ebytk\u016F"
+      type: entities
+    icon: mdi:thermometer
+    path: temperatures
+    theme: Backend-selected
+    title: Temperatures
+  - badges: []
+    cards:
+    - entity: climate.bathroom
+      type: thermostat
+    - entity: climate.bedroom_large
+      type: thermostat
+    - entity: climate.bedroom_small
+      type: thermostat
+    - detail: 2
+      entity: sensor.bathroomtemperature
+      graph: line
+      hours_to_show: 24
+      type: sensor
+    - detail: 2
+      entity: sensor.bedroom_large
+      graph: line
+      hours_to_show: 24
+      type: sensor
+    - detail: 2
+      entity: sensor.bedroom_small
+      graph: line
+      hours_to_show: 24
+      type: sensor
+    icon: mdi:home-thermometer
+    path: test
+    theme: Backend-selected
+    title: Test

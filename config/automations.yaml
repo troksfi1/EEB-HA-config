@@ -1,0 +1,42 @@
+- id: '1650019019546'
+  alias: When phone away -> thermostat away mode
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 6e3fcdfc63266bad7de2ce15745a0b78
+    domain: device_tracker
+    entity_id: device_tracker.rmx2155
+    type: leaves
+    zone: zone.home
+  condition: []
+  action:
+  - service: climate.set_preset_mode
+    data:
+      preset_mode: away
+    target:
+      entity_id:
+      - climate.bathroom
+      - climate.bedroom_large
+      - climate.bedroom_small
+  mode: single
+- id: '1650019279109'
+  alias: when phone in -> away mode off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 6e3fcdfc63266bad7de2ce15745a0b78
+    domain: device_tracker
+    entity_id: device_tracker.rmx2155
+    type: leaves
+    zone: zone.home
+  condition: []
+  action:
+  - service: climate.set_preset_mode
+    data:
+      preset_mode: none
+    target:
+      entity_id:
+      - climate.bathroom
+      - climate.bedroom_small
+      - climate.bedroom_large
+  mode: single

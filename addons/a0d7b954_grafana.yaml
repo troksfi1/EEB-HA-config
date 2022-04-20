@@ -1,0 +1,5 @@
+certfile: fullchain.pem
+env_vars: []
+keyfile: privkey.pem
+plugins: []
+ssl: true

@@ -1,0 +1,119 @@
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+substitutions:
+  devicename: sofarsolar-logger
+  friendly_name: SofarSolar
+
+# Enable logging
+logger:
+  level: VERBOSE
+
+# Enable Home Assistant API
+api:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    # IP of ESP
+    static_ip: 192.168.1.106
+    # IP of router
+    gateway: 192.168.1.1
+    # Subnet of network
+    subnet: 255.255.255.0
+
+captive_portal:
+
+ota:
+  password: "217b0cd4fc5393c3e27392b799aeb81d"
+
+esphome:
+  name: esp-32-sun2000g-4415n
+    
+uart:
+  id: mod_bus
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+  baud_rate: 9600
+  stop_bits: 1
+
+modbus:
+  id: mod_bus_sofar
+
+modbus_controller:
+  - id: sofarsolar
+    address: 0x1
+    modbus_id: mod_bus_sofar
+    update_interval: 2s
+      
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: sofarsolar
+    name: Total production today
+    id: inverter_total_daily_production
+    register_type: holding
+    unit_of_measurement: "kWh"
+    state_class: total_increasing
+    device_class: energy
+    accuracy_decimals: 1
+    address: 0x003c #60
+    filters:
+      - multiply: 0.1
+
+  #- platform: total_daily_energy
+   # name: "inverter_total_daily_production"
+  #  power_id: inverter_total_daily_production
+   # unit_of_measurement: "kWh"
+    #id: inverter_total_daily_production
+
+  - platform: modbus_controller
+    modbus_controller_id: sofarsolar
+    name: Total production
+    id: inverter_total_production
+    register_type: holding
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 1
+    address: 0x003f #63
+    filters:
+      - multiply: 0.1
+  
+  - platform: modbus_controller
+    modbus_controller_id: sofarsolar
+    name: AC voltage
+    id: inverter_ac_voltage
+    register_type: holding
+    unit_of_measurement: "V"
+    accuracy_decimals: 1
+    address: 0x0046 #70
+    filters:
+      - multiply: 0.1
+      
+  - platform: modbus_controller
+    modbus_controller_id: sofarsolar
+    name: Output power (prumer 5min)
+    id: inverter_output_power
+    register_type: holding
+    unit_of_measurement: "W"
+    accuracy_decimals: 1
+    address: 0x0056 #86
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: sofarsolar
+    name: DC Voltage
+    id: inverter_dc_voltage
+    register_type: holding
+    unit_of_measurement: "V"
+    accuracy_decimals: 1
+    address: 0x006d #109
+    filters:
+      - multiply: 0.1
+
+time:
+  - platform: sntp
+    id: my_time      
+

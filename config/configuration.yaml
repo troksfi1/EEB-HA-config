@@ -1,0 +1,112 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+
+sensor:
+  - platform: systemmonitor
+    resources:
+      - type: processor_use
+      - type: disk_free
+  - platform: websocket_api
+
+climate:
+  - platform: generic_thermostat
+    name: Bathroom
+    heater: switch.relay1
+    target_sensor: sensor.bathroomtemperature
+    min_temp: 15
+    max_temp: 25
+    ac_mode: false
+    target_temp: 17
+    cold_tolerance: 0.3
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 16
+    precision: 0.1
+
+  - platform: generic_thermostat
+    name: Bedroom large
+    heater: switch.relay3
+    target_sensor: sensor.bedroom_large
+    min_temp: 15
+    max_temp: 25
+    ac_mode: false
+    target_temp: 17
+    cold_tolerance: 0.3
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 16
+    precision: 0.1
+
+  - platform: generic_thermostat
+    name: Bedroom small
+    heater: switch.relay4
+    target_sensor: sensor.bedroom_small
+    min_temp: 15
+    max_temp: 25
+    ac_mode: false
+    target_temp: 17
+    cold_tolerance: 0.3
+    hot_tolerance: 0
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 16
+    precision: 0.1
+    
+
+input_select:
+
+  prio1_consumer:
+    name: Priority 1 consumer
+    options:
+      - ev charge
+      - hot water
+      - heat pump
+    initial: heat pump
+    icon: mdi:arrow-up-circle
+
+  prio2_consumer:
+    name: Priority 2 consumer
+    options:
+      - ev charge
+      - hot water
+      - heat pump
+    initial: ev charge
+    icon: mdi:arrow-right-circle
+
+  prio3_consumer:
+    name: Priority 3 consumer
+    options:
+      - ev charge

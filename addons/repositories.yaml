@@ -1,0 +1,20 @@
+ESPHome:
+  maintainer: ESPHome <esphome@nabucasa.com>
+  slug: 5c53de3b
+  source: https://github.com/esphome/home-assistant-addon
+Home Assistant Google Drive Backup Repository:
+  maintainer: Stephen Beechen <stephen@beechens.com>
+  slug: cebe7a76
+  source: https://github.com/sabeechen/hassio-google-drive-backup
+Local add-ons:
+  maintainer: you
+  slug: local
+  source: local
+Official add-ons:
+  maintainer: Home Assistant
+  slug: core
+  source: core
+Poeschl Home Assistant Add-ons:
+  maintainer: Poeschl <Poeschl@users.noreply.github.com>
+  slug: 243ffc37
+  source: https://github.com/Poeschl/Hassio-Addons
